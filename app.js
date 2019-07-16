@@ -1,11 +1,16 @@
 const express = require('express');
-
+const mongoose = require('mongoose');
+const bodyPaser = require('body-parser')
+mongoose.connect("mongodb://dbapicar:password1@ds062818.mlab.com:62818/apicar",{ useNewUrlParser: true });
+mongoose.Promise = global.Promise;
 const logger = require('morgan');
 const app = express();
 const users_url = require('./routes/users');
 
 //Midddewares
-app.use(logger('dev'))
+app.use(logger('dev'));
+app.use(bodyPaser.json());
+
 app.use('/users',users_url);
 
 app.use( (req,res,next)=>{
